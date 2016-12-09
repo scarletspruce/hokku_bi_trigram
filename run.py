@@ -80,15 +80,6 @@ def bigramms(input, output):
 
     words = master.split(' ')
 
-    c_words = {}
-
-    for w in words:
-        w = w.lower()
-        if w in c_words.keys():
-            c_words[w] +=1
-        else:
-            c_words[w] = 1
-
     c_bigs = {}
 
     for i in range(len(words)-1):
@@ -103,13 +94,12 @@ def bigramms(input, output):
             c_bigs[w] = 1
 
 
-    p_bigs = {}
-    p_syllables5 = {}
-    p_syllables7 = {}
+    p_bigs = []
 
     for w in c_bigs:
         [a,b] = w.split(' ')
-        p_bigs[a + ' ' + b] = c_bigs[w]/c_words[a]
+        s = a + ' ' + b
+        p_bigs.append(s)
 
     return p_bigs
 
@@ -129,15 +119,6 @@ def trigramms(input, output):
     f.close()
 
     words = master.split(' ')
-
-    c_words = {}
-
-    for w in words:
-        w = w.lower()
-        if w in c_words.keys():
-            c_words[w] +=1
-        else:
-            c_words[w] = 1
 
     c_bigs = {}
 
@@ -168,11 +149,12 @@ def trigramms(input, output):
             c_trigs[w] = 1
 
 
-    p_trigs = {}
+    p_trigs = []
 
     for w in c_trigs:
         [a,b,c] = w.split(' ')
-        p_trigs[a + ' ' + b + ' ' + c] = c_trigs[w]/c_bigs[a + ' ' + b]
+        s = a + ' ' + b + ' ' + c
+        p_trigs.append(s)
 
     return p_trigs
 
@@ -181,7 +163,7 @@ p_trigs = trigramms('Russian.txt', 'RussianNew.txt')
 
 def string_syllables5():
     sylls_5 = []
-    for w in p_bigs.keys():
+    for w in p_bigs:
         s = list(w)
         count = 0
         for h in s:
@@ -191,7 +173,7 @@ def string_syllables5():
                 pass
         if count == 5:
             sylls_5.append(w)
-    for w in p_trigs.keys():
+    for w in p_trigs:
         s = list(w)
         count = 0
         for h in s:
@@ -206,7 +188,7 @@ def string_syllables5():
 
 def string_syllables7():
     sylls_7 = []
-    for w in p_bigs.keys():
+    for w in p_bigs:
         s = list(w)
         count = 0
         for h in s:
@@ -216,7 +198,7 @@ def string_syllables7():
                 pass
         if count == 7:
             sylls_7.append(w)
-    for w in p_trigs.keys():
+    for w in p_trigs:
         s = list(w)
         count = 0
         for h in s:
